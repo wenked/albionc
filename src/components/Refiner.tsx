@@ -5,6 +5,7 @@ import { cityOptions, resourceOptions } from '../utils/resourcesData';
 import Dropdown from '../components/layout/Dropdown';
 import ResourcesInfo from './ResourcesInfo';
 import itemDataReducer from '../utils/itemDataReducer';
+import { TextField, Button } from '@material-ui/core';
 
 let initialArg: profitArgs = {
 	craftFee: 0,
@@ -99,7 +100,7 @@ const Refiner: React.FC = () => {
 		<div>
 			<div className='text-2xl font-bold'>Refiner Tool</div>
 			<div className='m-3 font-bold'>
-				<form className='block' onSubmit={handleSubmit}>
+				<form className='block' onSubmit={handleSubmit} noValidate>
 					<div className='flex'>
 						<div className='w-12'>
 							<Dropdown options={cityOptions} setFunction={setCity} />
@@ -110,71 +111,76 @@ const Refiner: React.FC = () => {
 					</div>
 					<div className='grid gap-2 grid-cols-2'>
 						<div className='border-solid border-black'>
-							<h3>Return rate %</h3>
-							<input
+							<TextField
 								value={resourceData?.returnRate}
 								onChange={onChangeHandlerReturnRate}
 								type='number'
+								label='Return rate %'
 							/>
 						</div>
 						<div className='border-solid border-black'>
-							<h3>Craft fee %</h3>
-							<input
+							<TextField
 								type='number'
 								value={resourceData?.craftFee}
 								onChange={onChangeHandlerCraft}
+								label='Craft fee %'
 							/>
 						</div>
 						<div className='border-solid border-black'>
-							<h3>Market Tax %</h3>
-							<input
+							<TextField
 								type='number'
 								value={resourceData?.marketTax}
 								onChange={onChangeHandlerMarketTax}
+								label='Market tax %'
 							/>
 						</div>
 						<div className='border-solid border-black'>
-							<h3>T4</h3>
-							<input
+							<TextField
 								value={resourceData?.mySpecT4}
 								onChange={onChangeHandlerT4}
 								type='number'
+								label='T4'
 							/>
 						</div>
 						<div className='border-solid border-black'>
-							<h3>T5</h3>
-							<input
+							<TextField
 								value={resourceData?.mySpecT5}
 								onChange={onChangeHandlerT5}
 								type='number'
+								label='T5'
 							/>
 						</div>
 						<div className='border-solid border-black'>
-							<h3>T6</h3>
-							<input
+							<TextField
 								value={resourceData?.mySpecT6}
 								onChange={onChangeHandlerT6}
 								type='number'
+								label='T6'
 							/>
 						</div>
 						<div className='border-solid border-black'>
-							<h3>T7</h3>
-							<input
+							<TextField
 								value={resourceData?.mySpecT7}
 								onChange={onChangeHandlerT7}
 								type='number'
+								label='T7'
 							/>
 						</div>
 						<div className='border-solid border-black'>
-							<h3>T8</h3>
-							<input
+							<TextField
 								value={resourceData?.mySpecT8}
 								onChange={onChangeHandlerT8}
 								type='number'
+								label='T8'
 							/>
 						</div>
-						<div>
-							<button className='bg-gray-200 p-3 m-3 w-1/3'>Refine</button>
+						<div className='p-3'>
+							<Button
+								variant='outlined'
+								type='submit'
+								className='bg-gray-200 p-4 m-4'>
+								Refine
+							</Button>
 						</div>
 					</div>
 				</form>
