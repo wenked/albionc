@@ -97,7 +97,7 @@ const Refiner: React.FC = () => {
 
 	return (
 		<div>
-			<h1>Data</h1>
+			<div className='text-2xl font-bold'>Refiner Tool</div>
 			<div className='m-3 font-bold'>
 				<form className='block' onSubmit={handleSubmit}>
 					<div className='flex'>
@@ -190,11 +190,22 @@ const Refiner: React.FC = () => {
 						/>
 					))}
 				</div>
-				<div className='text-xl font-bold'>
+				<div className='text-xl'>
 					{refinedResourcePrices?.map((refined, i) => (
-						<div key={i}>
-							<p>Refined: {refined.item_id}</p>
-							<p>Price: {refined.sell_price_min}</p>
+						<div key={i} className='shadow-2xl rounded-sm block py-4'>
+							<div className='inline-flex'>
+								<img
+									src={`https://render.albiononline.com/v1/item/${refined.item_id}?size=40`}
+									alt='item img'
+								/>
+								<p>
+									<span className='font-bold'>Refined:</span> {refined.item_id}
+								</p>
+							</div>
+							<p>
+								<span className='font-bold'>Price:</span>{' '}
+								{refined.sell_price_min}
+							</p>
 						</div>
 					))}
 				</div>

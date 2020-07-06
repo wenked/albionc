@@ -18,18 +18,37 @@ const ResourcesInfo: React.FC<Props> = ({
 	return (
 		<div className='block'>
 			{rawResourceData !== undefined && (
-				<div className='font-bold block text-xl'>
-					<p>Raw: {rawResourceData?.item_id}</p>
+				<div className='font-bold block text-xl shadow-2xl py-4 rounded-sm'>
+					<div className='inline-flex'>
+						<img
+							src={`https://render.albiononline.com/v1/item/${rawResourceData?.item_id}?size=40`}
+							alt='item img'
+						/>
+						<p>Raw: {rawResourceData?.item_id}</p>
+					</div>
 					<p>Raw Price: {rawResourceData?.sell_price_min}</p>
-					<p>
-						Refined recipe price:{' '}
-						{
-							refinedResourcesData?.find(
-								refined =>
-									getRecipe(rawResourceData?.item_id).recipe === refined.item_id
-							)?.sell_price_min
-						}{' '}
-					</p>
+					<div className='inline-flex'>
+						<img
+							src={`https://render.albiononline.com/v1/item/${
+								refinedResourcesData?.find(
+									refined =>
+										getRecipe(rawResourceData?.item_id).recipe ===
+										refined.item_id
+								)?.item_id
+							}?size=40`}
+							alt='item img'
+						/>
+						<p>
+							Refined recipe price:{' '}
+							{
+								refinedResourcesData?.find(
+									refined =>
+										getRecipe(rawResourceData?.item_id).recipe ===
+										refined.item_id
+								)?.sell_price_min
+							}{' '}
+						</p>
+					</div>
 					<p>
 						Refined price:{' '}
 						{
@@ -39,7 +58,7 @@ const ResourcesInfo: React.FC<Props> = ({
 							)?.sell_price_min
 						}
 					</p>
-					<span className='text-green-500'>
+					<span className='text-green-700'>
 						Profit/Focus:{' '}
 						{getProfitPerFocus(
 							resourceData,
