@@ -1,80 +1,21 @@
 import React from 'react';
-import getProfitPerFocus from '../utils/Formulas';
 import callApi from '../utils/callApi';
-import { profitArgs } from '../utils/Formulas';
+import { itemPriceData, profitArgs } from '../utils/types';
+import { cityOptions, resourceOptions } from '../utils/resourcesData';
 import Dropdown from '../components/layout/Dropdown';
 import ResourcesInfo from './ResourcesInfo';
 import itemDataReducer from '../utils/itemDataReducer';
 
-export interface itemPriceData {
-	item_id: string;
-	city: string;
-	quality: number;
-	sell_price_min: number;
-	sell_price_min_date: string;
-	sell_price_max: number;
-	sell_price_max_date: string;
-	buy_price_min: number;
-	buy_price_min_date: string;
-	buy_price_max: number;
-	buy_price_max_date: string;
-}
-
-const cityOptions = [
-	{
-		value: 'lymhurst',
-		label: 'Lymhurst',
-	},
-	{
-		value: 'fort sterling',
-		label: 'Fort sterling',
-	},
-	{
-		value: 'caerleon',
-		label: 'Caerleon',
-	},
-	{
-		value: 'martlock',
-		label: 'Martlock',
-	},
-	{
-		value: 'bridgewatch',
-		label: 'Bridgewatch',
-	},
-	{
-		value: 'thetford',
-		label: 'Thetford',
-	},
-];
-
-const resourceOptions = [
-	{
-		value: 'FIBER',
-		label: 'Fiber',
-		refined: 'CLOTH',
-	},
-	{
-		value: 'ORE',
-		label: 'Ore',
-		refined: 'METALBAR',
-	},
-	{
-		value: 'ROCK',
-		label: 'Rock',
-		refined: 'STONEBLOCK',
-	},
-	{
-		value: 'HIDE',
-		label: 'Hide',
-		refined: 'LEATHER',
-	},
-	{
-		value: 'WOOD',
-		label: 'Wood',
-		refined: 'PLANKS',
-	},
-];
-let initialArg: profitArgs;
+let initialArg: profitArgs = {
+	craftFee: 0,
+	mySpecT4: 0,
+	mySpecT5: 0,
+	mySpecT6: 0,
+	mySpecT7: 0,
+	mySpecT8: 0,
+	returnRate: 0,
+	marketTax: 0,
+};
 
 const Refiner: React.FC = () => {
 	const [resourceData, dispatch] = React.useReducer(
@@ -89,26 +30,6 @@ const Refiner: React.FC = () => {
 	const [refinedResourcePrices, setRefinedResourcesPrices] = React.useState<
 		itemPriceData[]
 	>();
-
-	/*console.log(
-		getProfitPerFocus({
-			item: 'T5_FIBER_LEVEL2@2',
-			craftFee: 0.13,
-			rawMinPrice: 2974,
-			refMinPrice: 2289,
-			refWantedMinPrice: 7197,
-			mySpec: {
-				spect4: 100,
-				spect5: 100,
-				spect6: 100,
-				spect7: 100,
-				spect8: 100,
-			},
-			marketTax: 0.03,
-			returnRate: 0.54,
-		}),
-		'teste'
-	);*/
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -258,11 +179,26 @@ const Refiner: React.FC = () => {
 					</div>
 				</form>
 			</div>
-			<ResourcesInfo
-				rawResourcesData={rawResourcePrices}
-				refinedResourcesData={refinedResourcePrices}
-				resourceData={resourceData}
-			/>
+			<div className='grid gap-2 grid-cols-2'>
+				<div>
+					{rawResourcePrices?.map((rawResource, i) => (
+						<ResourcesInfo
+							key={i}
+							rawResourceData={rawResource}
+							refinedResourcesData={refinedResourcePrices}
+							resourceData={resourceData}
+						/>
+					))}
+				</div>
+				<div className='text-xl font-bold'>
+					{refinedResourcePrices?.map((refined, i) => (
+						<div key={i}>
+							<p>Refined: {refined.item_id}</p>
+							<p>Price: {refined.sell_price_min}</p>
+						</div>
+					))}
+				</div>
+			</div>
 		</div>
 	);
 };

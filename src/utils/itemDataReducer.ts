@@ -1,25 +1,4 @@
-import { profitArgs } from '../utils/Formulas';
-import { actionResourceArgs } from './types';
-/*console.log(
-	getProfitPerFocus({
-		item: 'T8_FIBER_LEVEL1@1',
-		craftFee: 0.13,
-		rawMinPrice: 10597,
-		refMinPrice: 15683,
-		refWantedMinPrice: 39300,
-		mySpec: {
-			spect4: 100,
-			spect5: 100,
-			spect6: 100,
-			spect7: 100,
-			spect8: 100,
-		},
-		marketTax: 0.03,
-		returnRate: 0.54,
-	}),
-	'teste'
-);
-*/
+import { actionResourceArgs, profitArgs } from './types';
 
 export const itemDataReducer = (
 	state: profitArgs,
