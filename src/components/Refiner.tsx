@@ -6,6 +6,8 @@ import Dropdown from '../components/layout/Dropdown';
 import ResourcesInfo from './ResourcesInfo';
 import itemDataReducer from '../utils/itemDataReducer';
 import { TextField, Button } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import { formatedItems } from '../utils/formatedItems';
 
 let initialArg: profitArgs = {
 	craftFee: 0,
@@ -101,7 +103,7 @@ const Refiner: React.FC = () => {
 			<div className='text-2xl font-bold'>Refiner Tool</div>
 			<div className='m-3 font-bold'>
 				<form className='block' onSubmit={handleSubmit} noValidate>
-					<div className='flex'>
+					<div className='flex pb-2'>
 						<div className='w-12'>
 							<Dropdown options={cityOptions} setFunction={setCity} />
 						</div>
@@ -185,34 +187,41 @@ const Refiner: React.FC = () => {
 					</div>
 				</form>
 			</div>
-			<div className='grid gap-2 grid-cols-2'>
+			<div className='grid gap-2 grid-cols-2 py-2'>
 				<div>
 					{rawResourcePrices?.map((rawResource, i) => (
-						<ResourcesInfo
-							key={i}
-							rawResourceData={rawResource}
-							refinedResourcesData={refinedResourcePrices}
-							resourceData={resourceData}
-						/>
+						<>
+							<ResourcesInfo
+								key={i}
+								rawResourceData={rawResource}
+								refinedResourcesData={refinedResourcePrices}
+								resourceData={resourceData}
+							/>
+							<Divider />
+						</>
 					))}
 				</div>
 				<div className='text-xl'>
 					{refinedResourcePrices?.map((refined, i) => (
-						<div key={i} className='shadow-2xl rounded-sm block py-4'>
-							<div className='inline-flex'>
-								<img
-									src={`https://render.albiononline.com/v1/item/${refined.item_id}?size=40`}
-									alt='item img'
-								/>
+						<>
+							<div key={i} className='rounded-sm block'>
+								<div className='inline-flex'>
+									<img
+										src={`https://render.albiononline.com/v1/item/${refined.item_id}?size=40`}
+										alt='item img'
+									/>
+									<p>
+										<span className='font-bold'>Refined:</span>{' '}
+										{formatedItems[refined.item_id]}
+									</p>
+								</div>
 								<p>
-									<span className='font-bold'>Refined:</span> {refined.item_id}
+									<span className='font-bold'>Price:</span>{' '}
+									{refined.sell_price_min}
 								</p>
 							</div>
-							<p>
-								<span className='font-bold'>Price:</span>{' '}
-								{refined.sell_price_min}
-							</p>
-						</div>
+							<Divider />
+						</>
 					))}
 				</div>
 			</div>

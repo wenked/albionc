@@ -43,3 +43,18 @@ export type itemData = {
 		baseFocusCost: number;
 	};
 };
+
+export type formatedItem = {
+	[key: string]: string;
+};
+
+export interface itemChartPrices {
+	data: {
+		item_count: number;
+		prices_avg: number;
+		timestamps: number;
+	};
+	item_id: string;
+	location: string;
+	quality: number;
+}

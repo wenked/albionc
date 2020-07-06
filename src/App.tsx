@@ -1,11 +1,18 @@
 import React from 'react';
 import './styles/main.css';
 import Refiner from './components/Refiner';
+import MarketInfo from './components/MarketInfo';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 
 const App: React.FC = () => {
 	return (
 		<div className='text-gray-800 m-4 p-4'>
-			<Refiner />
+			<Router>
+				<Switch>
+					<Route path='/' exact component={Refiner} />
+					<Route path='/marketinfo' component={MarketInfo} />
+				</Switch>
+			</Router>
 		</div>
 	);
 };

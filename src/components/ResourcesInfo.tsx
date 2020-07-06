@@ -3,6 +3,7 @@ import { profitArgs, itemPriceData } from '../utils/types';
 import '../styles/main.css';
 import getRecipe from '../utils/getRecipe';
 import getProfitPerFocus from '../utils/Formulas';
+import { formatedItems } from '../utils/formatedItems';
 
 interface Props {
 	rawResourceData: itemPriceData | undefined;
@@ -18,13 +19,13 @@ const ResourcesInfo: React.FC<Props> = ({
 	return (
 		<div className='block'>
 			{rawResourceData !== undefined && (
-				<div className='font-bold block text-xl shadow-2xl py-4 rounded-sm'>
+				<div className='font-bold block text-xl py-4 rounded-sm'>
 					<div className='inline-flex'>
 						<img
 							src={`https://render.albiononline.com/v1/item/${rawResourceData?.item_id}?size=40`}
 							alt='item img'
 						/>
-						<p>Raw: {rawResourceData?.item_id}</p>
+						<p>Raw: {formatedItems[rawResourceData?.item_id]}</p>
 					</div>
 					<p>Raw Price: {rawResourceData?.sell_price_min}</p>
 					<div className='inline-flex'>
