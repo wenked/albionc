@@ -1,40 +1,32 @@
 import React from 'react';
-import axios from 'axios';
 import '../../styles/main.css';
 import TextField from '@material-ui/core/TextField';
-import { itemChartPrices } from '../../utils/types';
 import { formatedItems } from '../../utils/formatedItems';
 import _ from 'lodash';
 
 interface Props {
-	setItemsChartPrices: React.Dispatch<
-		React.SetStateAction<itemChartPrices[] | undefined>
-	>;
+	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchBar: React.FC<Props> = ({ setItemsChartPrices, setLoading }) => {
-	const [searchTerm, setSearchTerm] = React.useState<string>();
-	const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
+	const [search, setSearch] = React.useState<string>('');
+	const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setLoading(true);
 		const formatedSearchTerm = _.findKey(
 			formatedItems,
-			item => _.values(item).join('') === searchTerm
+			item => _.values(item).join('') === search
 		);
+		setSearchTerm(formatedSearchTerm);
 		console.log(formatedSearchTerm);
-		const response = await axios.get(
-			`https://www.albion-online-data.com/api/v2/stats/Charts/${formatedSearchTerm}`
-		);
-		
 
-		setItemsChartPrices(response.data);
 		setLoading(false);
 	};
-
 	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchTerm(event.target.value);
+		setSearch(event.target.value);
 	};
+
 	return (
 		<div>
 			<form onSubmit={onSubmitHandler}>
@@ -46,7 +38,7 @@ const SearchBar: React.FC<Props> = ({ setItemsChartPrices, setLoading }) => {
 						fullWidth
 						autoFocus
 						onChange={onChangeHandler}
-						value={searchTerm}
+						value={search}
 						defaultValue=''
 					/>
 				</div>

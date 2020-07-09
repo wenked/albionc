@@ -22,15 +22,30 @@ let initialArg: profitArgs = {
 	marketTax: 0,
 };
 
-const variants = {
+/*const variants = {
 	hidden: { opacity: 0 },
 	visible: {
 		opacity: 1,
 		transition: {
 			delay: 0.5,
+			duration: 1.5,
+			type: 'tween',
 		},
 	},
 	exit: { opacity: 0 },
+};*/
+
+const containerVariants = {
+	hidden: { x: '100vw' },
+	visible: {
+		x: '0',
+		transition: {
+			type: 'spring',
+			stiffness: 70,
+			delay: 0.5,
+		},
+	},
+	exit: { x: '-100vw', transition: { ease: 'easeInOut' } },
 };
 
 const Refiner: React.FC = () => {
@@ -50,63 +65,84 @@ const Refiner: React.FC = () => {
 	};
 
 	const onChangeHandlerCraft = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({
-			type: 'ADD_CRAFTFEE',
-			craftFee: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_CRAFTFEE',
+				craftFee: parseInt(e.target.value),
+			});
+		}
 	};
 	const onChangeHandlerMarketTax = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({
-			type: 'ADD_MARKETTAX',
-			marketTax: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_MARKETTAX',
+				marketTax: parseInt(e.target.value),
+			});
+		}
 	};
 
 	const onChangeHandlerReturnRate = (
 		e: React.ChangeEvent<HTMLInputElement>
 	) => {
-		dispatch({
-			type: 'ADD_RETURNRATE',
-			returnRate: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_RETURNRATE',
+				returnRate: parseInt(e.target.value),
+			});
+		}
 	};
 
 	const onChangeHandlerT4 = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({
-			type: 'ADD_SPECT4',
-			mySpecT4: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_SPECT4',
+				mySpecT4: parseInt(e.target.value),
+			});
+		}
 	};
 	const onChangeHandlerT5 = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({
-			type: 'ADD_SPECT5',
-			mySpecT5: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_SPECT5',
+				mySpecT5: parseInt(e.target.value),
+			});
+		}
 	};
 
 	const onChangeHandlerT6 = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({
-			type: 'ADD_SPECT6',
-			mySpecT6: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_SPECT6',
+				mySpecT6: parseInt(e.target.value),
+			});
+		}
 	};
 
 	const onChangeHandlerT7 = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({
-			type: 'ADD_SPECT7',
-			mySpecT7: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_SPECT7',
+				mySpecT7: parseInt(e.target.value),
+			});
+		}
 	};
 
 	const onChangeHandlerT8 = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch({
-			type: 'ADD_SPECT8',
-			mySpecT8: parseInt(e.target.value),
-		});
+		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
+			dispatch({
+				type: 'ADD_SPECT8',
+				mySpecT8: parseInt(e.target.value),
+			});
+		}
 	};
 
 	return (
-		<div className='m-4 p-4'>
+		<motion.div
+			variants={containerVariants}
+			initial='hidden'
+			animate='visible'
+			exit='exit'
+			className='m-4 p-4'>
 			<div className='text-2xl font-bold text-green-1100'>Refiner Tool</div>
 			<div className='m-3 font-bold'>
 				<form className='block' onSubmit={handleSubmit} noValidate>
@@ -202,11 +238,7 @@ const Refiner: React.FC = () => {
 			) : (
 				<div className='grid gap-2 grid-cols-2 py-2'>
 					<AnimatePresence>
-						<motion.div
-							initial='hidden'
-							animate='visible'
-							exit='exit'
-							variants={variants}>
+						<motion.div variants={containerVariants}>
 							{data?.raw?.map((rawResource: any, i: number) => (
 								<div key={i}>
 									<ResourcesInfo
@@ -221,7 +253,7 @@ const Refiner: React.FC = () => {
 					</AnimatePresence>
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 
