@@ -10,101 +10,68 @@ interface Props {
 	refinedResourcesData: itemPriceData[] | undefined;
 	resourceData: profitArgs;
 }
-
-const organizeItems = (obj: Object, item: itemPriceData) => {
-	if (item !== undefined) {
-		return Object.assign(obj, {
-			[item.item_id]: item.item_id !== undefined && { ...item },
-		});
-	}
-
-	return Object.assign(obj, { nada: 'nada' });
-};
+let refinedRecipe: itemPriceData | undefined;
+let refined: itemPriceData | undefined;
+let profitPerFocus: string | undefined;
 
 const ResourcesInfo: React.FC<Props> = ({
 	rawResourceData,
 	refinedResourcesData,
 	resourceData,
 }) => {
-	const Teste: any = refinedResourcesData?.reduce(organizeItems, {});
-	refinedResourcesData !== undefined && console.log(Teste);
-	// Teste[getRecipe(rawResourceData.item_id).recipe].sell_price_min}
-	rawResourceData !== undefined &&
-		!rawResourceData.item_id.includes('T3') &&
-		console.log(
-			refinedResourcesData !== undefined &&
-				rawResourceData !== undefined &&
-				!rawResourceData.item_id.includes('T3') &&
-				Teste[getRecipe(rawResourceData?.item_id).recipe]
+	if (refinedResourcesData && rawResourceData !== undefined) {
+		refinedRecipe = refinedResourcesData?.find(
+			refined => getRecipe(rawResourceData?.item_id).recipe === refined.item_id
 		);
+		refined = refinedResourcesData?.find(
+			refined => getRecipe(rawResourceData.item_id).refined === refined.item_id
+		);
+		profitPerFocus = getProfitPerFocus(
+			resourceData,
+			rawResourceData.sell_price_min,
+			refinedRecipe?.sell_price_min,
+			refined?.sell_price_min,
+			rawResourceData.item_id
+		)?.toFixed(2);
+	}
 
 	return (
-		<div className='block'>
-			{refinedResourcesData !== undefined &&
-				rawResourceData !== undefined &&
-				!rawResourceData.item_id.includes('T3') && (
-					<div className='font-bold block text-xl py-4 rounded-sm'>
+		<div className='block text-green-1100'>
+			<div className='font-bold block text-xl py-4 rounded-sm'>
+				<div className='inline-flex'>
+					<img
+						src={`https://render.albiononline.com/v1/item/${rawResourceData?.item_id}?size=60`}
+						alt='item img'
+					/>
+					<p>
+						Raw resource:{' '}
+						{rawResourceData !== undefined &&
+							formatedItems[rawResourceData.item_id]}
+					</p>
+				</div>
+				<p>Raw resource price: {rawResourceData?.sell_price_min}</p>
+				{!rawResourceData?.item_id.includes('T3') && (
+					<>
 						<div className='inline-flex'>
 							<img
-								src={`https://render.albiononline.com/v1/item/${rawResourceData?.item_id}?size=40`}
+								src={`https://render.albiononline.com/v1/item/${refinedRecipe?.item_id}?size=60`}
 								alt='item img'
 							/>
-							<p>Raw: {formatedItems[rawResourceData?.item_id]}</p>
+							<p>Refined recipe price: {refinedRecipe?.sell_price_min} </p>
 						</div>
-						<span className='text-red-500'>
-							{Teste[getRecipe(rawResourceData?.item_id).recipe].sell_price_min}
-						</span>
-						<p>Raw Price: {rawResourceData?.sell_price_min}</p>
-						<div className='inline-flex'>
+						<div className='ml-3 inline-flex'>
 							<img
-								src={`https://render.albiononline.com/v1/item/${
-									refinedResourcesData?.find(
-										refined =>
-											getRecipe(rawResourceData?.item_id).recipe ===
-											refined.item_id
-									)?.item_id
-								}?size=40`}
+								src={`https://render.albiononline.com/v1/item/${refined?.item_id}?size=60`}
 								alt='item img'
 							/>
-							<p>
-								Refined recipe price:{' '}
-								{
-									refinedResourcesData?.find(
-										refined =>
-											getRecipe(rawResourceData?.item_id).recipe ===
-											refined.item_id
-									)?.sell_price_min
-								}{' '}
-							</p>
+							<p>Refined resource price: {refined?.sell_price_min}</p>
 						</div>
-						<p>
-							Refined price:{' '}
-							{
-								refinedResourcesData?.find(
-									refined =>
-										getRecipe(rawResourceData.item_id).refined ===
-										refined.item_id
-								)?.sell_price_min
-							}
-						</p>
-						<span className='text-green-700'>
-							Profit/Focus:{' '}
-							{getProfitPerFocus(
-								resourceData,
-								rawResourceData.sell_price_min,
-								refinedResourcesData?.find(
-									item =>
-										getRecipe(rawResourceData.item_id).recipe === item.item_id
-								)?.sell_price_min,
-								refinedResourcesData?.find(
-									item =>
-										getRecipe(rawResourceData.item_id).refined === item.item_id
-								)?.sell_price_min,
-								rawResourceData.item_id
-							)?.toFixed(2)}
-						</span>
-					</div>
+						<div>
+							<p className='text-green-1000'>Profit/Focus: {profitPerFocus}</p>
+						</div>{' '}
+					</>
 				)}
+			</div>
 		</div>
 	);
 };

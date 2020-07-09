@@ -30,9 +30,9 @@ const Dropdown: React.FC<Props> = ({ setFunction, options }) => {
 			<select
 				placeholder='Select your option'
 				onChange={handleChange}
-				className='border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none'>
+				className='border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-green-1100 focus:outline-none appearance-none'>
 				{options.map((option, i) => (
-					<option key={i} value={option.value}>
+					<option key={i} value={option.value} className='hover:bg-green-1000'>
 						{option.label}
 					</option>
 				))}

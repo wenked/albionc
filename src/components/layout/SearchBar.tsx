@@ -10,12 +10,14 @@ interface Props {
 	setItemsChartPrices: React.Dispatch<
 		React.SetStateAction<itemChartPrices[] | undefined>
 	>;
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SearchBar: React.FC<Props> = ({ setItemsChartPrices }) => {
+const SearchBar: React.FC<Props> = ({ setItemsChartPrices, setLoading }) => {
 	const [searchTerm, setSearchTerm] = React.useState<string>();
 	const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setLoading(true);
 		const formatedSearchTerm = _.findKey(
 			formatedItems,
 			item => _.values(item).join('') === searchTerm
@@ -26,6 +28,7 @@ const SearchBar: React.FC<Props> = ({ setItemsChartPrices }) => {
 		);
 
 		setItemsChartPrices(response.data);
+		setLoading(false);
 	};
 
 	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

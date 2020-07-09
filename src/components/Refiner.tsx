@@ -7,7 +7,8 @@ import ResourcesInfo from './ResourcesInfo';
 import itemDataReducer from '../utils/itemDataReducer';
 import { TextField, Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
-import { formatedItems } from '../utils/formatedItems';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { motion, AnimatePresence } from 'framer-motion';
 
 let initialArg: profitArgs = {
 	craftFee: 0,
@@ -20,7 +21,19 @@ let initialArg: profitArgs = {
 	marketTax: 0,
 };
 
+const variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			delay: 0.5,
+		},
+	},
+	exit: { opacity: 0 },
+};
+
 const Refiner: React.FC = () => {
+	const [loading, setLoading] = React.useState<boolean>(false);
 	const [resourceData, dispatch] = React.useReducer(
 		itemDataReducer,
 		initialArg
@@ -36,10 +49,11 @@ const Refiner: React.FC = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
+		setLoading(true);
 		const response = await callApi(city, resource);
 		setRawResourcesPrices(response?.raw);
 		setRefinedResourcesPrices(response?.refined);
+		setLoading(false);
 	};
 
 	const onChangeHandlerCraft = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,8 +113,8 @@ const Refiner: React.FC = () => {
 	};
 
 	return (
-		<div>
-			<div className='text-2xl font-bold'>Refiner Tool</div>
+		<div className='m-4 p-4'>
+			<div className='text-2xl font-bold text-green-1100'>Refiner Tool</div>
 			<div className='m-3 font-bold'>
 				<form className='block' onSubmit={handleSubmit} noValidate>
 					<div className='flex pb-2'>
@@ -187,44 +201,31 @@ const Refiner: React.FC = () => {
 					</div>
 				</form>
 			</div>
-			<div className='grid gap-2 grid-cols-2 py-2'>
-				<div>
-					{rawResourcePrices?.map((rawResource, i) => (
-						<>
-							<ResourcesInfo
-								key={i}
-								rawResourceData={rawResource}
-								refinedResourcesData={refinedResourcePrices}
-								resourceData={resourceData}
-							/>
-							<Divider />
-						</>
-					))}
-				</div>
-				<div className='text-xl'>
-					{refinedResourcePrices?.map((refined, i) => (
-						<>
-							<div key={i} className='rounded-sm block'>
-								<div className='inline-flex'>
-									<img
-										src={`https://render.albiononline.com/v1/item/${refined.item_id}?size=40`}
-										alt='item img'
+			{loading ? (
+				<CircularProgress />
+			) : (
+				<div className='grid gap-2 grid-cols-2 py-2'>
+					<AnimatePresence>
+						<motion.div
+							initial='hidden'
+							animate='visible'
+							exit='exit'
+							variants={variants}>
+							{rawResourcePrices?.map((rawResource, i) => (
+								<>
+									<ResourcesInfo
+										key={i}
+										rawResourceData={rawResource}
+										refinedResourcesData={refinedResourcePrices}
+										resourceData={resourceData}
 									/>
-									<p>
-										<span className='font-bold'>Refined:</span>{' '}
-										{formatedItems[refined.item_id]}
-									</p>
-								</div>
-								<p>
-									<span className='font-bold'>Price:</span>{' '}
-									{refined.sell_price_min}
-								</p>
-							</div>
-							<Divider />
-						</>
-					))}
+									<Divider />
+								</>
+							))}
+						</motion.div>
+					</AnimatePresence>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };

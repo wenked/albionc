@@ -1,17 +1,13 @@
 import React from 'react';
 import './styles/main.css';
-import Refiner from './components/Refiner';
-import MarketInfo from './components/MarketInfo';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './components/Routes';
 
 const App: React.FC = () => {
 	return (
-		<div className='text-gray-800 m-4 p-4'>
+		<div>
 			<Router>
-				<Switch>
-					<Route path='/' exact component={Refiner} />
-					<Route path='/marketinfo' component={MarketInfo} />
-				</Switch>
+				<Routes />
 			</Router>
 		</div>
 	);

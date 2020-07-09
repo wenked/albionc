@@ -8,9 +8,9 @@ interface Props {
 
 const ItemsInfo: React.FC<Props> = ({ itemChartPrices }) => {
 	return (
-		<div className='grid gap-4 grid-cols-2'>
+		<div className='grid gap-4 grid-cols-2 pt-8'>
 			{itemChartPrices?.map((item, i) => (
-				<div key={i} className='w-1/2 '>
+				<div key={i} className='w-3/4 '>
 					<Line
 						data={{
 							labels: item.data.timestamps,
@@ -20,14 +20,14 @@ const ItemsInfo: React.FC<Props> = ({ itemChartPrices }) => {
 									showLines: true,
 									fill: false,
 									lineTension: 0.1,
-									backgroundColor: 'rgba(75,192,192,0.4)',
-									borderColor: 'rgba(75,192,192,1)',
+									backgroundColor: '#4D724D',
+									borderColor: '#8DB48E',
 									borderCapStyle: 'butt',
 									borderDash: [],
 									borderDashOffset: 0.0,
 									borderJoinStyle: 'miter',
-									pointBorderColor: 'rgba(75,192,192,1)',
-									pointBackgroundColor: '#fff',
+									pointBorderColor: '#4D724D',
+									pointBackgroundColor: '#4D724D',
 									pointBorderWidth: 1,
 									pointHoverRadius: 5,
 									pointHoverBackgroundColor: 'rgba(75,192,192,1)',
