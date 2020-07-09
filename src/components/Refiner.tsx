@@ -1,6 +1,6 @@
 import React from 'react';
 import callApi from '../utils/callApi';
-import { itemPriceData, profitArgs } from '../utils/types';
+import { profitArgs } from '../utils/types';
 import { cityOptions, resourceOptions } from '../utils/resourcesData';
 import Dropdown from '../components/layout/Dropdown';
 import ResourcesInfo from './ResourcesInfo';
@@ -9,6 +9,7 @@ import { TextField, Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { motion, AnimatePresence } from 'framer-motion';
+import useSWR from 'swr';
 
 let initialArg: profitArgs = {
 	craftFee: 0,
@@ -33,26 +34,18 @@ const variants = {
 };
 
 const Refiner: React.FC = () => {
-	const [loading, setLoading] = React.useState<boolean>(false);
+	const [loading, setLoading] = React.useState<boolean>(true);
 	const [resourceData, dispatch] = React.useReducer(
 		itemDataReducer,
 		initialArg
 	);
 	const [city, setCity] = React.useState<string>();
 	const [resource, setResource] = React.useState<string>();
-	const [rawResourcePrices, setRawResourcesPrices] = React.useState<
-		itemPriceData[]
-	>();
-	const [refinedResourcePrices, setRefinedResourcesPrices] = React.useState<
-		itemPriceData[]
-	>();
+	const { data } = useSWR([city, resource], callApi);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setLoading(true);
-		const response = await callApi(city, resource);
-		setRawResourcesPrices(response?.raw);
-		setRefinedResourcesPrices(response?.refined);
+
 		setLoading(false);
 	};
 
@@ -202,7 +195,10 @@ const Refiner: React.FC = () => {
 				</form>
 			</div>
 			{loading ? (
-				<CircularProgress />
+				<div>
+					<CircularProgress size={20} />
+					<span className='ml-2 text-green-1100'>Insert your specs...</span>
+				</div>
 			) : (
 				<div className='grid gap-2 grid-cols-2 py-2'>
 					<AnimatePresence>
@@ -211,16 +207,15 @@ const Refiner: React.FC = () => {
 							animate='visible'
 							exit='exit'
 							variants={variants}>
-							{rawResourcePrices?.map((rawResource, i) => (
-								<>
+							{data?.raw?.map((rawResource: any, i: number) => (
+								<div key={i}>
 									<ResourcesInfo
-										key={i}
 										rawResourceData={rawResource}
-										refinedResourcesData={refinedResourcePrices}
+										refinedResourcesData={data.refined}
 										resourceData={resourceData}
 									/>
 									<Divider />
-								</>
+								</div>
 							))}
 						</motion.div>
 					</AnimatePresence>

@@ -26,6 +26,7 @@ const SearchBar: React.FC<Props> = ({ setItemsChartPrices, setLoading }) => {
 		const response = await axios.get(
 			`https://www.albion-online-data.com/api/v2/stats/Charts/${formatedSearchTerm}`
 		);
+		
 
 		setItemsChartPrices(response.data);
 		setLoading(false);
