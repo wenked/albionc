@@ -47,8 +47,8 @@ const ResourcesInfo: React.FC<Props> = ({
 	}
 
 	return (
-		<div className='text-green-1100'>
-			<div className='text-2xl py-4 rounded-sm'>
+		<div className='py-6 text-green-1100 shadow-md transform hover:-translate-y-2 hover:shadow-lg'>
+			<div className='text-xl py-4 m-4 rounded-sm'>
 				<div className='inline-flex'>
 					<img
 						src={`https://render.albiononline.com/v1/item/${rawResourceData?.item_id}?size=60`}
@@ -67,17 +67,20 @@ const ResourcesInfo: React.FC<Props> = ({
 
 				{!rawResourceData?.item_id.includes('T3') && (
 					<>
-						<div className='ml-4 inline-flex'>
-							<img
-								src={`https://render.albiononline.com/v1/item/${refinedRecipe?.item_id}?size=60`}
-								alt='item img'
-							/>
+						<div className='inline-flex'>
+							<div className='relative pb-2/3'>
+								<img
+									className='absolute h-full w-full object-cover'
+									src={`https://render.albiononline.com/v1/item/${refinedRecipe?.item_id}?size=60`}
+									alt='item img'
+								/>
+							</div>
 							<p>
 								<span className='text-lg'>Recipe price:</span>{' '}
 								{refinedRecipe?.sell_price_min}{' '}
 							</p>
 						</div>
-						<div className='inline-flex'>
+						<div className='inline-flex ml-2'>
 							<img
 								src={`https://render.albiononline.com/v1/item/${refined?.item_id}?size=60`}
 								alt='item img'
@@ -89,7 +92,7 @@ const ResourcesInfo: React.FC<Props> = ({
 						</div>
 						<div>
 							<p className={profitStyle}>
-								<span className='text-lg'>Profit/Focus:</span> {profitPerFocus}
+								<span className='text-2xl'>Profit/Focus:</span> {profitPerFocus}
 							</p>
 						</div>{' '}
 					</>

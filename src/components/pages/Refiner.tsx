@@ -222,8 +222,10 @@ const Refiner: React.FC = () => {
 					<span className='ml-2 text-green-1100'>Insert your SPECs...</span>
 				</div>
 			) : (
-				<div className='flex'>
-					<motion.div variants={containerVariants}>
+				<div>
+					<motion.div
+						variants={containerVariants}
+						className='block md:grid gap-4 grid-cols-2'>
 						<AnimatePresence exitBeforeEnter>
 							{data?.raw?.map((rawResource: any, i: number) => (
 								<motion.div
@@ -240,7 +242,7 @@ const Refiner: React.FC = () => {
 											ease: 'easeInOut',
 										},
 									}}
-									className='flex-row'
+									className='py-4'
 									key={i}>
 									<ResourcesInfo
 										rawResourceData={rawResource}
