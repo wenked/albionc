@@ -7,9 +7,10 @@ type optionsType = { value: string; label: string; refined?: string };
 interface Props {
 	setFunction: React.Dispatch<React.SetStateAction<string | undefined>>;
 	options: optionsType[];
+	label: string;
 }
 
-const Dropdown: React.FC<Props> = ({ setFunction, options }) => {
+const Dropdown: React.FC<Props> = ({ setFunction, options, label }) => {
 	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		event.preventDefault();
 
@@ -31,6 +32,7 @@ const Dropdown: React.FC<Props> = ({ setFunction, options }) => {
 				placeholder='Select your option'
 				onChange={handleChange}
 				className='border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-green-1100 focus:outline-none appearance-none'>
+				<option value={label}>{label}</option>
 				{options.map((option, i) => (
 					<option key={i} value={option.value} className='hover:bg-green-1000'>
 						{option.label}

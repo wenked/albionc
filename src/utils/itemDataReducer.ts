@@ -14,15 +14,15 @@ export const itemDataReducer = (
 		case 'ADD_RETURNRATE':
 			return { ...state, returnRate: action.returnRate };
 		case 'ADD_SPECT4':
-			return { ...state, mySpecT4: action.mySpecT4 };
+			return { ...state, SPECT4: action.SPECT4 };
 		case 'ADD_SPECT5':
-			return { ...state, mySpecT5: action.mySpecT5 };
+			return { ...state, SPECT5: action.SPECT5 };
 		case 'ADD_SPECT6':
-			return { ...state, mySpecT6: action.mySpecT6 };
+			return { ...state, SPECT6: action.SPECT6 };
 		case 'ADD_SPECT7':
-			return { ...state, mySpecT7: action.mySpecT7 };
+			return { ...state, SPECT7: action.SPECT7 };
 		case 'ADD_SPECT8':
-			return { ...state, mySpecT8: action.mySpecT8 };
+			return { ...state, SPECT8: action.SPECT8 };
 	}
 };
 

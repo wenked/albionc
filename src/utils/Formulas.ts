@@ -23,30 +23,30 @@ const getProfitPerFocus = (
 
 	if (rawMinPrice && refRecipeMinPrice && refWantedMinPrice !== undefined) {
 		let myEfficiency = efficiency(
-			myArgs.mySpecT4,
-			myArgs.mySpecT5,
-			myArgs.mySpecT6,
-			myArgs.mySpecT7,
-			myArgs.mySpecT8
+			myArgs.SPECT4,
+			myArgs.SPECT5,
+			myArgs.SPECT6,
+			myArgs.SPECT7,
+			myArgs.SPECT8
 		);
 		if (item.includes('T4')) {
-			spec = myArgs.mySpecT4;
+			spec = myArgs.SPECT4;
 			craftVar = 2;
 		}
 		if (item.includes('T5')) {
-			spec = myArgs.mySpecT5;
+			spec = myArgs.SPECT5;
 			craftVar = 3;
 		}
 		if (item.includes('T6')) {
-			spec = myArgs.mySpecT6;
+			spec = myArgs.SPECT6;
 			craftVar = 4;
 		}
 		if (item.includes('T7')) {
-			spec = myArgs.mySpecT7;
+			spec = myArgs.SPECT7;
 			craftVar = 5;
 		}
 		if (item.includes('T8')) {
-			spec = myArgs.mySpecT8;
+			spec = myArgs.SPECT8;
 			craftVar = 5;
 		}
 

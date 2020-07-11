@@ -1,21 +1,12 @@
 import React from 'react';
-import { itemChartPrices } from '../utils/types';
-import '../styles/main.css';
-import SearchBar from './layout/SearchBar';
-import ItemsInfo from './ItemsInfo';
+import { itemChartPrices } from '../../utils/types';
+import '../../styles/main.css';
+import SearchBar from '../layout/SearchBar';
+import ItemsInfo from '../ItemsInfo';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useApi } from './useApi';
+import { motion } from 'framer-motion';
+import { useMarketApi } from '../useMarketApi';
 
-const variants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			delay: 0.5,
-		},
-	},
-};
 const containerVariants = {
 	hidden: { x: '100vw' },
 	visible: {
@@ -32,7 +23,7 @@ const containerVariants = {
 const MarketInfo: React.FC = () => {
 	const [searchTerm, setSearchTerm] = React.useState<string | undefined>('');
 	const [loading, setLoading] = React.useState<boolean>(false);
-	const { data, isValidating } = useApi<itemChartPrices[]>(searchTerm);
+	const { data, isValidating } = useMarketApi<itemChartPrices[]>(searchTerm);
 	return (
 		<motion.div
 			variants={containerVariants}
@@ -48,15 +39,12 @@ const MarketInfo: React.FC = () => {
 					<CircularProgress />
 				</div>
 			) : (
-				<AnimatePresence>
-					<motion.div
-						initial='hidden'
-						animate='visible'
-						exit='exit'
-						variants={variants}>
-						<ItemsInfo itemChartPrices={data} />
-					</motion.div>
-				</AnimatePresence>
+				<motion.div
+					initial='hidden'
+					animate='visible'
+					variants={containerVariants}>
+					<ItemsInfo itemChartPrices={data} />
+				</motion.div>
 			)}
 		</motion.div>
 	);

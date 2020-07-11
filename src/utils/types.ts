@@ -3,12 +3,12 @@ export type actionResourceArgs =
 	| { type: 'ADD_CRAFTFEE'; craftFee: number }
 	| {
 			type: 'ADD_SPECT4';
-			mySpecT4: number;
+			SPECT4: number;
 	  }
-	| { type: 'ADD_SPECT5'; mySpecT5: number }
-	| { type: 'ADD_SPECT6'; mySpecT6: number }
-	| { type: 'ADD_SPECT7'; mySpecT7: number }
-	| { type: 'ADD_SPECT8'; mySpecT8: number }
+	| { type: 'ADD_SPECT5'; SPECT5: number }
+	| { type: 'ADD_SPECT6'; SPECT6: number }
+	| { type: 'ADD_SPECT7'; SPECT7: number }
+	| { type: 'ADD_SPECT8'; SPECT8: number }
 	| { type: 'ADD_MARKETTAX'; marketTax: number }
 	| { type: 'ADD_RETURNRATE'; returnRate: number };
 
@@ -28,11 +28,11 @@ export interface itemPriceData {
 
 export interface profitArgs {
 	craftFee: number;
-	mySpecT4: number;
-	mySpecT5: number;
-	mySpecT6: number;
-	mySpecT7: number;
-	mySpecT8: number;
+	SPECT4: number;
+	SPECT5: number;
+	SPECT6: number;
+	SPECT7: number;
+	SPECT8: number;
 	returnRate: number;
 	marketTax: number;
 }
