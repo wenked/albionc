@@ -35,7 +35,9 @@ const ResourcesInfo: React.FC<Props> = ({
 			refinedRecipe?.sell_price_min,
 			refined?.sell_price_min,
 			rawResourceData.item_id
-		)?.toFixed(2);
+		)
+			?.toFixed(2)
+			.replace(/\d(?=(\d{3})+\.)/g, '$&,');
 	}
 
 	if (profitPerFocus !== undefined) {
@@ -54,45 +56,60 @@ const ResourcesInfo: React.FC<Props> = ({
 						src={`https://render.albiononline.com/v1/item/${rawResourceData?.item_id}?size=60`}
 						alt='item img'
 					/>
+
 					<p>
 						<span className='text-lg'>Raw resource:</span>{' '}
-						{rawResourceData !== undefined &&
-							formatedItems[rawResourceData.item_id]}
+						<span className='font-bold'>
+							{rawResourceData !== undefined &&
+								formatedItems[rawResourceData.item_id]}
+						</span>
 					</p>
 					<span className='ml-4'>
 						<span className='text-lg'>Price:</span>{' '}
-						{rawResourceData?.sell_price_min}
+						<span className='font-bold'>
+							{rawResourceData?.sell_price_min
+								.toFixed(2)
+								.replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+						</span>
 					</span>
 				</div>
 
 				{!rawResourceData?.item_id.includes('T3') && (
 					<>
 						<div className='inline-flex'>
-							<div className='relative pb-2/3'>
-								<img
-									className='absolute h-full w-full object-cover'
-									src={`https://render.albiononline.com/v1/item/${refinedRecipe?.item_id}?size=60`}
-									alt='item img'
-								/>
-							</div>
+							<img
+								src={`https://render.albiononline.com/v1/item/${refinedRecipe?.item_id}?size=60`}
+								alt='item img'
+							/>
+
 							<p>
 								<span className='text-lg'>Recipe price:</span>{' '}
-								{refinedRecipe?.sell_price_min}{' '}
+								<span className='font-bold'>
+									{refinedRecipe?.sell_price_min
+										.toFixed(2)
+										.replace(/\d(?=(\d{3})+\.)/g, '$&,')}{' '}
+								</span>
 							</p>
 						</div>
-						<div className='inline-flex ml-2'>
+						<div className='inline-flex ml-2 '>
 							<img
 								src={`https://render.albiononline.com/v1/item/${refined?.item_id}?size=60`}
 								alt='item img'
 							/>
+
 							<p>
 								<span className='text-lg'>Refined resource price:</span>{' '}
-								{refined?.sell_price_min}
+								<span className='font-bold'>
+									{refined?.sell_price_min
+										.toFixed(2)
+										.replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+								</span>
 							</p>
 						</div>
 						<div>
 							<p className={profitStyle}>
-								<span className='text-2xl'>Profit/Focus:</span> {profitPerFocus}
+								<span className='text-2xl font-bold'>Profit/Focus:</span>{' '}
+								{profitPerFocus}
 							</p>
 						</div>{' '}
 					</>

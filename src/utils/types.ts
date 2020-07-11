@@ -50,9 +50,9 @@ export type formatedItem = {
 
 export interface itemChartPrices {
 	data: {
-		item_count: number;
-		prices_avg: number;
-		timestamps: number;
+		item_count: number[];
+		prices_avg: number[];
+		timestamps: string[];
 	};
 	item_id: string;
 	location: string;

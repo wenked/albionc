@@ -23,7 +23,7 @@ let initialArg: profitArgs = {
 	marketTax: 0,
 };
 
-const containerVariants = {
+/*const containerVariants = {
 	hidden: { x: '100vw' },
 	visible: {
 		x: '0',
@@ -34,6 +34,17 @@ const containerVariants = {
 		},
 	},
 	exit: { x: '-100vw', transition: { ease: 'easeInOut' } },
+};*/
+
+const fadeVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			delay: 1,
+			duration: 1,
+		},
+	},
 };
 
 const Refiner: React.FC = () => {
@@ -101,10 +112,10 @@ const Refiner: React.FC = () => {
 
 	return (
 		<motion.div
-			variants={containerVariants}
+			variants={fadeVariants}
 			initial='hidden'
 			animate='visible'
-			exit='exit'
+			exit='hidden'
 			className='m-4 p-4'>
 			<div className='text-2xl font-bold text-green-1100'>Refiner Tool</div>
 			<div className='m-3 font-bold'>
@@ -224,7 +235,7 @@ const Refiner: React.FC = () => {
 			) : (
 				<div>
 					<motion.div
-						variants={containerVariants}
+						variants={fadeVariants}
 						className='block md:grid gap-4 grid-cols-2'>
 						<AnimatePresence exitBeforeEnter>
 							{data?.raw?.map((rawResource: any, i: number) => (

@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { motion } from 'framer-motion';
 import { useMarketApi } from '../useMarketApi';
 
-const containerVariants = {
+/*const containerVariants = {
 	hidden: { x: '100vw' },
 	visible: {
 		x: '0',
@@ -17,7 +17,18 @@ const containerVariants = {
 			delay: 0.5,
 		},
 	},
-	exit: { x: '-100vw', transition: { ease: 'easeInOut' } },
+	exit: { x: '-100vh', transition: { ease: 'easeInOut' } },
+};*/
+
+const fadeVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			delay: 1,
+			duration: 1,
+		},
+	},
 };
 
 const MarketInfo: React.FC = () => {
@@ -26,10 +37,10 @@ const MarketInfo: React.FC = () => {
 	const { data, isValidating } = useMarketApi<itemChartPrices[]>(searchTerm);
 	return (
 		<motion.div
-			variants={containerVariants}
+			variants={fadeVariants}
 			initial='hidden'
 			animate='visible'
-			exit='exit'
+			exit='hidden'
 			className='m-4 p-4'>
 			<h1 className='text-6xl font-bold text-green-1100 text-center'>Market</h1>
 			<SearchBar setLoading={setLoading} setSearchTerm={setSearchTerm} />
@@ -39,10 +50,7 @@ const MarketInfo: React.FC = () => {
 					<CircularProgress />
 				</div>
 			) : (
-				<motion.div
-					initial='hidden'
-					animate='visible'
-					variants={containerVariants}>
+				<motion.div initial='hidden' animate='visible' variants={fadeVariants}>
 					<ItemsInfo itemChartPrices={data} />
 				</motion.div>
 			)}

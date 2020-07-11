@@ -70,4 +70,10 @@ const getProfitPerFocus = (
 	}
 };
 
+export const ConvertDate = (stringDateArray: string[]): string[] => {
+	return stringDateArray
+		.map((date) => new Date(date))
+		.map((date) => date.toDateString());
+};
+
 export default getProfitPerFocus;

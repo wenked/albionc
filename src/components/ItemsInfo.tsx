@@ -1,6 +1,7 @@
 import React from 'react';
 import { itemChartPrices } from '../utils/types';
 import { Line } from 'react-chartjs-2';
+import { ConvertDate } from '../utils/Formulas';
 
 interface Props {
 	itemChartPrices: itemChartPrices[] | undefined;
@@ -8,12 +9,12 @@ interface Props {
 
 const ItemsInfo: React.FC<Props> = ({ itemChartPrices }) => {
 	return (
-		<div className='grid gap-4 grid-cols-2 pt-8'>
+		<div className='pt-8 block md:grid gap-4 grid-cols-2 '>
 			{itemChartPrices?.map((item, i) => (
-				<div key={i} className='w-3/4 '>
+				<div key={i} className='w-full md:w-3/4 '>
 					<Line
 						data={{
-							labels: item.data.timestamps,
+							labels: ConvertDate(item.data.timestamps),
 							datasets: [
 								{
 									label: item.location,
