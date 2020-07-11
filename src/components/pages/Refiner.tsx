@@ -2,7 +2,6 @@ import React from 'react';
 import '../../styles/main.css';
 import { profitArgs } from '../../utils/types';
 import { cityOptions, resourceOptions } from '../../utils/resourcesData';
-import Dropdown from '../layout/Dropdown';
 import ResourcesInfo from '../ResourcesInfo';
 import itemDataReducer from '../../utils/itemDataReducer';
 import { TextField, Button } from '@material-ui/core';
@@ -11,6 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSWR from 'swr';
 import fetchResourcesPrices from '../../utils/fetchResourcesPrices';
+import MySelect from '../layout/MySelect';
 
 let initialArg: profitArgs = {
 	craftFee: 0,
@@ -111,17 +111,19 @@ const Refiner: React.FC = () => {
 				<form className='block' onSubmit={handleSubmit} noValidate>
 					<div className='flex pb-2'>
 						<div className='w-12'>
-							<Dropdown
+							<MySelect
 								label='City'
 								options={cityOptions}
 								setFunction={setCity}
+								state={city}
 							/>
 						</div>
 						<div className='w-12 pl-32'>
-							<Dropdown
+							<MySelect
 								label='Resource'
 								options={resourceOptions}
 								setFunction={setResource}
+								state={resource}
 							/>
 						</div>
 					</div>
