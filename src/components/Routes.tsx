@@ -4,6 +4,7 @@ import Refiner from './pages/Refiner';
 import MarketInfo from './pages/MarketInfo';
 import NavBar from './layout/NavBar';
 import { AnimatePresence } from 'framer-motion';
+import Footer from './layout/Footer';
 
 const Routes: React.FC = () => {
 	const location = useLocation();
@@ -16,6 +17,7 @@ const Routes: React.FC = () => {
 					<Route path='/marketinfo' component={MarketInfo} />
 				</Switch>
 			</AnimatePresence>
+			<Footer />
 		</>
 	);
 };

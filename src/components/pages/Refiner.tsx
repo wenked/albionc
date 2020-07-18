@@ -64,49 +64,47 @@ const Refiner: React.FC = () => {
 	};
 
 	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (parseInt(e.target.value) <= 100 && parseInt(e.target.value) >= 0) {
-			switch (e.target.id) {
-				case 'ADD_CRAFTFEE':
-					return dispatch({
-						type: 'ADD_CRAFTFEE',
-						craftFee: parseInt(e.target.value),
-					});
-				case 'ADD_MARKETTAX':
-					return dispatch({
-						type: 'ADD_MARKETTAX',
-						marketTax: parseInt(e.target.value),
-					});
-				case 'ADD_RETURNRATE':
-					return dispatch({
-						type: 'ADD_RETURNRATE',
-						returnRate: parseInt(e.target.value),
-					});
-				case 'ADD_SPECT4':
-					return dispatch({
-						type: 'ADD_SPECT4',
-						SPECT4: parseInt(e.target.value),
-					});
-				case 'ADD_SPECT5':
-					return dispatch({
-						type: 'ADD_SPECT5',
-						SPECT5: parseInt(e.target.value),
-					});
-				case 'ADD_SPECT6':
-					return dispatch({
-						type: 'ADD_SPECT6',
-						SPECT6: parseInt(e.target.value),
-					});
-				case 'ADD_SPECT7':
-					return dispatch({
-						type: 'ADD_SPECT7',
-						SPECT7: parseInt(e.target.value),
-					});
-				case 'ADD_SPECT8':
-					return dispatch({
-						type: 'ADD_SPECT8',
-						SPECT8: parseInt(e.target.value),
-					});
-			}
+		switch (e.target.id) {
+			case 'ADD_CRAFTFEE':
+				return dispatch({
+					type: 'ADD_CRAFTFEE',
+					craftFee: parseInt(e.target.value),
+				});
+			case 'ADD_MARKETTAX':
+				return dispatch({
+					type: 'ADD_MARKETTAX',
+					marketTax: parseInt(e.target.value),
+				});
+			case 'ADD_RETURNRATE':
+				return dispatch({
+					type: 'ADD_RETURNRATE',
+					returnRate: parseInt(e.target.value),
+				});
+			case 'ADD_SPECT4':
+				return dispatch({
+					type: 'ADD_SPECT4',
+					SPECT4: parseInt(e.target.value),
+				});
+			case 'ADD_SPECT5':
+				return dispatch({
+					type: 'ADD_SPECT5',
+					SPECT5: parseInt(e.target.value),
+				});
+			case 'ADD_SPECT6':
+				return dispatch({
+					type: 'ADD_SPECT6',
+					SPECT6: parseInt(e.target.value),
+				});
+			case 'ADD_SPECT7':
+				return dispatch({
+					type: 'ADD_SPECT7',
+					SPECT7: parseInt(e.target.value),
+				});
+			case 'ADD_SPECT8':
+				return dispatch({
+					type: 'ADD_SPECT8',
+					SPECT8: parseInt(e.target.value),
+				});
 		}
 	};
 

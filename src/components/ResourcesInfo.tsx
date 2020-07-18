@@ -66,11 +66,7 @@ const ResourcesInfo: React.FC<Props> = ({
 					</p>
 					<span className='ml-4'>
 						<span className='text-lg'>Price:</span>{' '}
-						<span className='font-bold'>
-							{rawResourceData?.sell_price_min
-								.toFixed(2)
-								.replace(/\d(?=(\d{3})+\.)/g, '$&,')}
-						</span>
+						<span className='font-bold'>{rawResourceData?.sell_price_min}</span>
 					</span>
 				</div>
 
@@ -85,9 +81,7 @@ const ResourcesInfo: React.FC<Props> = ({
 							<p>
 								<span className='text-lg'>Recipe price:</span>{' '}
 								<span className='font-bold'>
-									{refinedRecipe?.sell_price_min
-										.toFixed(2)
-										.replace(/\d(?=(\d{3})+\.)/g, '$&,')}{' '}
+									{refinedRecipe?.sell_price_min}{' '}
 								</span>
 							</p>
 						</div>
@@ -99,11 +93,7 @@ const ResourcesInfo: React.FC<Props> = ({
 
 							<p>
 								<span className='text-lg'>Refined resource price:</span>{' '}
-								<span className='font-bold'>
-									{refined?.sell_price_min
-										.toFixed(2)
-										.replace(/\d(?=(\d{3})+\.)/g, '$&,')}
-								</span>
+								<span className='font-bold'>{refined?.sell_price_min}</span>
 							</p>
 						</div>
 						<div>
