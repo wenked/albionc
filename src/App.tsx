@@ -5,7 +5,7 @@ import Routes from './components/Routes';
 
 const App: React.FC = () => {
 	return (
-		<div>
+		<div className='flex flex-col min-h-screen'>
 			<Router>
 				<Routes />
 			</Router>
