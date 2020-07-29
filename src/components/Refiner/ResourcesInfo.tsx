@@ -66,7 +66,9 @@ const ResourcesInfo: React.FC<Props> = ({
 					</p>
 					<span className='ml-4'>
 						<span className='text-lg'>Price:</span>{' '}
-						<span className='font-bold'>{rawResourceData?.sell_price_min}</span>
+						<span className='font-bold'>
+							{rawResourceData?.sell_price_min.toLocaleString()}
+						</span>
 					</span>
 				</div>
 
@@ -81,7 +83,7 @@ const ResourcesInfo: React.FC<Props> = ({
 							<p>
 								<span className='text-lg'>Recipe price:</span>{' '}
 								<span className='font-bold'>
-									{refinedRecipe?.sell_price_min}{' '}
+									{refinedRecipe?.sell_price_min.toLocaleString()}{' '}
 								</span>
 							</p>
 						</div>
@@ -93,7 +95,9 @@ const ResourcesInfo: React.FC<Props> = ({
 
 							<p>
 								<span className='text-lg'>Refined resource price:</span>{' '}
-								<span className='font-bold'>{refined?.sell_price_min}</span>
+								<span className='font-bold'>
+									{refined?.sell_price_min.toLocaleString()}
+								</span>
 							</p>
 						</div>
 						<div>

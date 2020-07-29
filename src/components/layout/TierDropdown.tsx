@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-// import { Container } from './styles';
+
 
 interface Props {
 	tier: string | undefined;

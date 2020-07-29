@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { formatedItems } from '../../utils/formatedItems';
 import { itemChartPrices } from '../../utils/types';
+import { ConvertDate } from '../../utils/Formulas';
 import '../../styles/main.css';
 
 interface Props {
@@ -11,30 +13,31 @@ interface Props {
 //https://render.albiononline.com/v1/item/T5_2H_COMBATSTAFF_MORGANA@2?size=35
 
 const ItemsInfo: React.FC<Props> = ({ itemChartPrices, itemName }) => {
-	const LatestPrices = itemChartPrices?.map((itemData) => {
+	const LatestPrices = itemChartPrices?.map((itemData, i) => {
 		const LastElement = itemData.data.prices_avg.length - 1;
+
 		return (
-			<div>
+			<div key={i}>
 				<h4 className='text-green-1000 font-semibold'>{itemData.location}</h4>
 				<h5 className='text-sm'>
 					Recent Price :
 					<span className='font-semibold text-green-1100 text-base '>
 						{' '}
-						{itemData.data.prices_avg[LastElement]}
+						{itemData.data.prices_avg[LastElement].toLocaleString()}
 					</span>
 				</h5>
 				<h5 className='text-sm'>
 					Recent Item Count :
 					<span className='font-semibold text-green-1100  text-base'>
 						{' '}
-						{itemData.data.item_count[LastElement]}
+						{itemData.data.item_count[LastElement].toLocaleString()}
 					</span>{' '}
 				</h5>
 				<h5 className='text-sm'>
 					Time :
 					<span className='font-semibold text-green-1100 text-base'>
 						{' '}
-						{itemData.data.timestamps[LastElement]}
+						{ConvertDate(itemData.data.timestamps[LastElement])}
 					</span>
 				</h5>
 			</div>

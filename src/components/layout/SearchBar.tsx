@@ -1,9 +1,22 @@
 import React from 'react';
 import '../../styles/main.css';
 import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
 import { formatedItems } from '../../utils/formatedItems';
 import _ from 'lodash';
 import TierDropdown from './TierDropdown';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			'& .MuiInputBase-root': {
+				margin: theme.spacing(1),
+				width: 400,
+			},
+		},
+	})
+);
 
 interface Props {
 	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -11,6 +24,7 @@ interface Props {
 }
 
 const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
+	const classes = useStyles();
 	const [tier, setTier] = React.useState<string>();
 	const [search, setSearch] = React.useState<string>('');
 	const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,19 +47,21 @@ const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 	return (
 		<div>
 			<form onSubmit={onSubmitHandler}>
-				<div className='items-center justify-center'>
+				<div className='flex  justify-center'>
 					<TextField
+						className={classes.root}
 						label='Search your item'
 						variant='outlined'
 						type='search'
-						fullWidth
 						autoFocus
 						onChange={onChangeHandler}
 						value={search}
 						defaultValue=''
 					/>
 					<TierDropdown tier={tier} setTier={setTier} />
-					<button type='submit'>search</button>
+					<Button variant='outlined' type='submit'>
+						search
+					</Button>
 				</div>
 			</form>
 		</div>
