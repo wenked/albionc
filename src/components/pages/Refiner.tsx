@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/main.css';
 import { profitArgs } from '../../utils/types';
 import { cityOptions, resourceOptions } from '../../utils/resourcesData';
-import ResourcesInfo from '../ResourcesInfo';
+import ResourcesInfo from '../Refiner/ResourcesInfo';
 import itemDataReducer from '../../utils/itemDataReducer';
 import { TextField, Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';

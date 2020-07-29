@@ -3,6 +3,7 @@ import '../../styles/main.css';
 import TextField from '@material-ui/core/TextField';
 import { formatedItems } from '../../utils/formatedItems';
 import _ from 'lodash';
+import TierDropdown from './TierDropdown';
 
 interface Props {
 	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -10,18 +11,20 @@ interface Props {
 }
 
 const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
+	const [tier, setTier] = React.useState<string>();
 	const [search, setSearch] = React.useState<string>('');
 	const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setLoading(true);
-		const formatedSearchTerm = _.findKey(
-			formatedItems,
-			item => _.values(item).join('') === search
-		);
-		setSearchTerm(formatedSearchTerm);
-		console.log(formatedSearchTerm);
+		if (tier !== undefined) {
+			const formatedSearchTerm =
+				_.findKey(formatedItems, (item) => _.values(item).join('') === search) +
+				tier;
+			setSearchTerm(formatedSearchTerm);
+			console.log(formatedSearchTerm);
 
-		setLoading(false);
+			setLoading(false);
+		}
 	};
 	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearch(event.target.value);
@@ -41,6 +44,8 @@ const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 						value={search}
 						defaultValue=''
 					/>
+					<TierDropdown tier={tier} setTier={setTier} />
+					<button type='submit'>search</button>
 				</div>
 			</form>
 		</div>

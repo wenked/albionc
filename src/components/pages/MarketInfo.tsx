@@ -2,10 +2,11 @@ import React from 'react';
 import { itemChartPrices } from '../../utils/types';
 import '../../styles/main.css';
 import SearchBar from '../layout/SearchBar';
-import ItemsInfo from '../ItemsInfo';
+import ItemsGraph from '../Market/ItemsGraph';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { motion } from 'framer-motion';
-import { useMarketApi } from '../useMarketApi';
+import { useMarketApi } from '../../utils/useMarketApi';
+import ItemsInfo from '../Market/ItemsInfo';
 
 /*const containerVariants = {
 	hidden: { x: '100vw' },
@@ -50,8 +51,13 @@ const MarketInfo: React.FC = () => {
 					<CircularProgress />
 				</div>
 			) : (
-				<motion.div initial='hidden' animate='visible' variants={fadeVariants}>
-					<ItemsInfo itemChartPrices={data} />
+				<motion.div
+					initial='hidden'
+					animate='visible'
+					variants={fadeVariants}
+					className='pt-4	'>
+					<ItemsInfo itemChartPrices={data} itemName={searchTerm} />
+					<ItemsGraph itemChartPrices={data} />
 				</motion.div>
 			)}
 		</motion.div>

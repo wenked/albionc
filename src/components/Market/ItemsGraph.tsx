@@ -1,7 +1,7 @@
 import React from 'react';
-import { itemChartPrices } from '../utils/types';
+import { itemChartPrices } from '../../utils/types';
 import { Line } from 'react-chartjs-2';
-import { ConvertDate } from '../utils/Formulas';
+import { ConvertDate } from '../../utils/Formulas';
 
 interface Props {
 	itemChartPrices: itemChartPrices[] | undefined;
