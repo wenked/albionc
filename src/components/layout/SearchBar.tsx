@@ -23,14 +23,17 @@ interface Props {
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+type Nullable<T> = T | null;
+
 const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 	const classes = useStyles();
-	const [tier, setTier] = React.useState<string>();
+	const [tier, setTier] = React.useState<string>('');
 	const [search, setSearch] = React.useState<string>('');
+
 	const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setLoading(true);
-		if (tier !== undefined) {
+		if (tier !== null) {
 			const formatedSearchTerm =
 				_.findKey(formatedItems, (item) => _.values(item).join('') === search) +
 				tier;
@@ -56,7 +59,6 @@ const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 						autoFocus
 						onChange={onChangeHandler}
 						value={search}
-						defaultValue=''
 					/>
 					<TierDropdown tier={tier} setTier={setTier} />
 					<Button variant='outlined' type='submit'>

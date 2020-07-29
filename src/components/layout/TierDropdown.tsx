@@ -17,14 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-
-
 interface Props {
-	tier: string | undefined;
-	setTier: React.Dispatch<React.SetStateAction<string | undefined>>;
+	tier: string;
+	setTier: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const TierDropdown: React.FC<Props> = ({ tier = '', setTier }) => {
+const TierDropdown: React.FC<Props> = ({ tier, setTier }) => {
 	const classes = useStyles();
 
 	const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
