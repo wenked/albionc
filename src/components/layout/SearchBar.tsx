@@ -1,11 +1,12 @@
 import React from 'react';
 import '../../styles/main.css';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
 import { formatedItems } from '../../utils/formatedItems';
 import _ from 'lodash';
 import TierDropdown from './TierDropdown';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -13,6 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
 			'& .MuiInputBase-root': {
 				margin: theme.spacing(1),
 				width: 400,
+				[theme.breakpoints.down('sm')]: {
+					width: 300,
+				},
 			},
 		},
 	})
@@ -50,7 +54,7 @@ const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 	return (
 		<div>
 			<form onSubmit={onSubmitHandler}>
-				<div className='flex  justify-center'>
+				<div className='block md:flex  justify-center'>
 					<TextField
 						className={classes.root}
 						label='Search your item'
@@ -61,9 +65,9 @@ const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 						value={search}
 					/>
 					<TierDropdown tier={tier} setTier={setTier} />
-					<Button variant='outlined' type='submit'>
-						search
-					</Button>
+					<IconButton type='submit'>
+						<SearchIcon />
+					</IconButton>
 				</div>
 			</form>
 		</div>
