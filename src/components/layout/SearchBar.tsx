@@ -27,8 +27,6 @@ interface Props {
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-type Nullable<T> = T | null;
-
 const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 	const classes = useStyles();
 	const [tier, setTier] = React.useState<string>('');
