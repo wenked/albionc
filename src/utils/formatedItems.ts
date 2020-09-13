@@ -1,4 +1,5 @@
 import { formatedItem } from './types';
+import _ from 'lodash';
 
 export const formatedItems: formatedItem = {
 	UNIQUE_HIDEOUT: 'Hideout Construction Kit',
@@ -6881,3 +6882,5 @@ export const formatedItems: formatedItem = {
 	T8_JOURNAL_FISHING_EMPTY: "Elder Fisherman's Journal (Empty)",
 	T8_JOURNAL_FISHING_FULL: "Elder Fisherman's Journal (Full)",
 };
+
+export const ItemsNamesArray = _.values(formatedItems);

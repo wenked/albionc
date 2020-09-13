@@ -18,29 +18,28 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-	tier: string;
-	setTier: React.Dispatch<React.SetStateAction<string>>;
+	quality: number;
+	setQuality: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const TierDropdown: React.FC<Props> = ({ tier, setTier }) => {
+const QualityDropdown: React.FC<Props> = ({ quality, setQuality }) => {
 	const classes = useStyles();
 
 	const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-		setTier(event.target.value as string);
+		setQuality(event.target.value as number);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
-			<InputLabel>Tier</InputLabel>
-			<Select value={tier} onChange={handleChange}>
-				<MenuItem value={''} selected>
-					No Tier
-				</MenuItem>
-				<MenuItem value={'@1'}>Tier .1</MenuItem>
-				<MenuItem value={'@2'}>Tier .2</MenuItem>
-				<MenuItem value={'@3'}>Tier .3</MenuItem>
+			<InputLabel>Quality</InputLabel>
+			<Select value={quality} onChange={handleChange}>
+				<MenuItem value={1}>Normal</MenuItem>
+				<MenuItem value={2}>Good</MenuItem>
+				<MenuItem value={3}>Outstanding</MenuItem>
+				<MenuItem value={4}>Excellent</MenuItem>
+				<MenuItem value={5}>Masterpiece</MenuItem>
 			</Select>
 		</FormControl>
 	);
 };
-export default TierDropdown;
+export default QualityDropdown;

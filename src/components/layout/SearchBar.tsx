@@ -7,6 +7,9 @@ import TierDropdown from './TierDropdown';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
+import { Autocomplete } from '@material-ui/lab';
+import { ItemsNamesArray } from '../../utils/formatedItems';
+import QualityDropdown from './QualityDropdown';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -25,12 +28,21 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
 	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	withQuality?: boolean;
+	quality?: number;
+	setQuality?: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
+const SearchBar: React.FC<Props> = ({
+	setSearchTerm,
+	setLoading,
+	quality,
+	setQuality,
+	withQuality,
+}) => {
 	const classes = useStyles();
 	const [tier, setTier] = React.useState<string>('');
-	const [search, setSearch] = React.useState<string>('');
+	const [search, setSearch] = React.useState<string | null>('');
 
 	const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -45,24 +57,36 @@ const SearchBar: React.FC<Props> = ({ setSearchTerm, setLoading }) => {
 			setLoading(false);
 		}
 	};
-	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearch(event.target.value);
+	const onChangeHandler = (event: any, newValue: string | null) => {
+		setSearch(newValue);
 	};
 
 	return (
 		<div>
 			<form onSubmit={onSubmitHandler}>
 				<div className='block md:flex  justify-center'>
-					<TextField
-						className={classes.root}
-						label='Search your item'
-						variant='outlined'
-						type='search'
-						autoFocus
+					<Autocomplete
 						onChange={onChangeHandler}
 						value={search}
+						id='searchbox'
+						options={_.uniq(ItemsNamesArray)}
+						getOptionSelected={(opt, val) => opt === val}
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								className={classes.root}
+								label='Search your item'
+								variant='outlined'
+								type='search'
+								autoFocus
+							/>
+						)}
 					/>
+
 					<TierDropdown tier={tier} setTier={setTier} />
+					{withQuality ? (
+						<QualityDropdown quality={quality!} setQuality={setQuality!} />
+					) : null}
 					<IconButton type='submit'>
 						<SearchIcon />
 					</IconButton>

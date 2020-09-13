@@ -36,6 +36,9 @@ const MySelect: React.FC<Props> = ({ setFunction, options, label, state }) => {
 			<FormControl className={classes.formControl}>
 				<InputLabel>{label}</InputLabel>
 				<Select value={state} onChange={handleChange}>
+					<MenuItem value='' disabled hidden selected>
+						Select one material
+					</MenuItem>
 					{options.map((option, i) => {
 						return (
 							<MenuItem key={i} value={option.value}>
