@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { formatedItems } from '../../utils/formatedItems';
 import { ConvertDate } from '../../utils/Formulas';
-import { itemPriceData } from '../../utils/types';
+import { itemChartPrices, itemPriceData } from '../../utils/types';
 import { useMarketFlipperApi } from '../../utils/useMarketFlipperApi';
 import SearchBar from '../layout/SearchBar';
 
@@ -24,7 +25,15 @@ const Flipper: React.FC = () => {
 		searchTerm,
 		quality
 	);
+	//const [blackMarketPrice, setBlackMarketPrice] = useState<itemPriceData[]>();
 	console.log(data);
+	let bmItem: itemPriceData[];
+	if (data) {
+		bmItem = data.filter(
+			(itemData: itemPriceData) => itemData.city === 'Black Market'
+		);
+		//setBlackMarketPrice(bmItem);
+	}
 	return (
 		<motion.div
 			variants={fadeVariants}
@@ -42,18 +51,54 @@ const Flipper: React.FC = () => {
 				setLoading={setLoading}
 				setSearchTerm={setSearchTerm}
 			/>
+			{searchTerm !== undefined ? (
+				<div className='p-4 m-4 inline-flex'>
+					<img
+						alt='item-img'
+						src={`https://render.albiononline.com/v1/item/${searchTerm}?size=45`}
+					/>
+					<h2>{formatedItems[searchTerm]}</h2>
+				</div>
+			) : null}
 			{isValidating && loading
 				? 'Loading...'
-				: data?.map((iteminfo) => {
+				: data?.map((iteminfo, key) => {
 						return (
-							<div className='m-4 p-4'>
-								<div>{iteminfo.city}</div>
+							<div className='m-4 p-4' key={key}>
+								{iteminfo.city !== 'Black Market' ? (
+									<div>
+										<div>{iteminfo.city}</div>
+										<div>
+											{iteminfo.sell_price_min
+												.toFixed(1)
+												.replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+										</div>
+										<div>{ConvertDate(iteminfo.buy_price_min_date)}</div>
+									</div>
+								) : (
+									<div>
+										<h3>{iteminfo.city}</h3>
+										<h4>{iteminfo.buy_price_max}</h4>
+									</div>
+								)}
+
 								<div>
-									{iteminfo.sell_price_max
-										.toFixed(1)
-										.replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+									{iteminfo.city !== 'Black Market' && bmItem ? (
+										<div>
+											<h1 className='font-bold'>Profit </h1>
+											<h2
+												className={
+													bmItem[0].buy_price_max - iteminfo.sell_price_min > 0
+														? 'text-green-700 font-semibold'
+														: 'text-red-500 font-semibold'
+												}>
+												{iteminfo.sell_price_min !== 0
+													? bmItem[0].buy_price_max - iteminfo.sell_price_min
+													: null}
+											</h2>
+										</div>
+									) : null}
 								</div>
-								<div>{ConvertDate(iteminfo.sell_price_max_date)}</div>
 							</div>
 						);
 				  })}
